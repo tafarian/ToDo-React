@@ -4,40 +4,75 @@ import './../css/style.scss';
 
 document.addEventListener('DOMContentLoaded', function(){
 
-    const List = props => (
-        <ul>
-            {
-                props.items.map((item, index) => <li key={index}>{item}</li>)
+
+    class List extends React.Component {
+
+        handleDoneClick = () => {
+            if ( typeof this.props.onDone === 'function' ){
+                this.props.onDone(this.props.title);
             }
-        </ul>
-    );
+        };
+
+        handleRemoveClick = () => {
+            if ( typeof this.props.onRemove === 'function' ){
+                this.props.onRemove(this.props.title);
+            }
+        };
+
+        render() {
+
+            return (
+                <ul>
+                    {
+                        this.props.items.map((item, index) => <li key={index}>
+                            <i className="fas fa-times"
+                               onClick={this.handleRemoveClick}></i>
+                            <i className="fas fa-check"
+                               onClick={this.handleDoneClick}></i>
+                            {item}
+                        </li>)
+                    }
+                </ul>
+            )
+        }
+    }
 
     class App extends React.Component {
         state = {
-            input: '',
-            items: []
+            term: '',
+            items: [],
         };
 
         onChange = (event) => {
-            this.setState({ input: event.target.value });
+            this.setState({ term: event.target.value });
         };
 
         onSubmit = (event) => {
             event.preventDefault();
             this.setState({
-                input: '',
-                items: [...this.state.items, this.state.input]
+                term: '',
+                items: [...this.state.items, this.state.term]
             });
+        };
+
+        handleItemDone = (e) => {
+            console.log("DONE")
+        };
+
+        handleItemRemove = (e) => {
+            console.log("REMOVE")
         };
 
         render() {
             return (
                 <div>
-                    <form onSubmit={this.onSubmit}>
-                        <input value={this.state.input} onChange={this.onChange} />
+                    <form className="App" onSubmit={this.onSubmit}>
+                        <input value={this.state.term} onChange={this.onChange} />
                         <button>Submit</button>
                     </form>
-                    <List items={this.state.items} />
+                    <List items={this.state.items}
+                          onDone={this.handleItemDone}
+                          onRemove={this.handleItemRemove}/>
                 </div>
             );
         }

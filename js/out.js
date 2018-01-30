@@ -11082,47 +11082,87 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 document.addEventListener('DOMContentLoaded', function () {
+    var List = function (_React$Component) {
+        _inherits(List, _React$Component);
 
-    var List = function List(props) {
-        return _react2.default.createElement(
-            'ul',
-            null,
-            props.items.map(function (item, index) {
-                return _react2.default.createElement(
-                    'li',
-                    { key: index },
-                    item
-                );
-            })
-        );
-    };
-
-    var App = function (_React$Component) {
-        _inherits(App, _React$Component);
-
-        function App() {
+        function List() {
             var _ref;
 
             var _temp, _this, _ret;
 
-            _classCallCheck(this, App);
+            _classCallCheck(this, List);
 
             for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
                 args[_key] = arguments[_key];
             }
 
-            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-                input: '',
-                items: []
-            }, _this.onChange = function (event) {
-                _this.setState({ input: event.target.value });
-            }, _this.onSubmit = function (event) {
-                event.preventDefault();
-                _this.setState({
-                    input: '',
-                    items: [].concat(_toConsumableArray(_this.state.items), [_this.state.input])
-                });
+            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref, [this].concat(args))), _this), _this.handleDoneClick = function () {
+                if (typeof _this.props.onDone === 'function') {
+                    _this.props.onDone(_this.props.title);
+                }
+            }, _this.handleRemoveClick = function () {
+                if (typeof _this.props.onRemove === 'function') {
+                    _this.props.onRemove(_this.props.title);
+                }
             }, _temp), _possibleConstructorReturn(_this, _ret);
+        }
+
+        _createClass(List, [{
+            key: 'render',
+            value: function render() {
+                var _this2 = this;
+
+                return _react2.default.createElement(
+                    'ul',
+                    null,
+                    this.props.items.map(function (item, index) {
+                        return _react2.default.createElement(
+                            'li',
+                            { key: index },
+                            _react2.default.createElement('i', { className: 'fas fa-times',
+                                onClick: _this2.handleRemoveClick }),
+                            _react2.default.createElement('i', { className: 'fas fa-check',
+                                onClick: _this2.handleDoneClick }),
+                            item
+                        );
+                    })
+                );
+            }
+        }]);
+
+        return List;
+    }(_react2.default.Component);
+
+    var App = function (_React$Component2) {
+        _inherits(App, _React$Component2);
+
+        function App() {
+            var _ref2;
+
+            var _temp2, _this3, _ret2;
+
+            _classCallCheck(this, App);
+
+            for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+                args[_key2] = arguments[_key2];
+            }
+
+            return _ret2 = (_temp2 = (_this3 = _possibleConstructorReturn(this, (_ref2 = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref2, [this].concat(args))), _this3), _this3.state = {
+                term: '',
+                items: []
+            }, _this3.onChange = function (event) {
+                _this3.setState({ term: event.target.value });
+            }, _this3.onSubmit = function (event) {
+                event.preventDefault();
+                _this3.setState({
+                    term: '',
+                    items: [].concat(_toConsumableArray(_this3.state.items), [_this3.state.term])
+                });
+            }, _this3.handleItemDone = function (e) {
+                console.log("DONE");
+            }, _this3.handleItemRemove = function (e) {
+                console.log("REMOVE");
+            }, _temp2), _possibleConstructorReturn(_this3, _ret2);
         }
 
         _createClass(App, [{
@@ -11133,15 +11173,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     null,
                     _react2.default.createElement(
                         'form',
-                        { onSubmit: this.onSubmit },
-                        _react2.default.createElement('input', { value: this.state.input, onChange: this.onChange }),
+                        { className: 'App', onSubmit: this.onSubmit },
+                        _react2.default.createElement('input', { value: this.state.term, onChange: this.onChange }),
                         _react2.default.createElement(
                             'button',
                             null,
                             'Submit'
                         )
                     ),
-                    _react2.default.createElement(List, { items: this.state.items })
+                    _react2.default.createElement(List, { items: this.state.items,
+                        onDone: this.handleItemDone,
+                        onRemove: this.handleItemRemove })
                 );
             }
         }]);
@@ -22227,7 +22269,7 @@ exports = module.exports = __webpack_require__(217)(false);
 
 
 // module
-exports.push([module.i, "h1 {\n  color: red; }\n", ""]);
+exports.push([module.i, "li {\n  list-style: none; }\n\n.fa-times {\n  color: red; }\n\n.fa-check {\n  color: green; }\n", ""]);
 
 // exports
 
