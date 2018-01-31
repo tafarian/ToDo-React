@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', function(){
         render() {
 
             return (
-                <li>
+                <li className="box">
                     <i className="fas fa-times"
                        onClick={this.handleRemoveClick}
                        style={{marginRight: "10px"}}></i>
-                    <span>{this.props.title}</span>
+                    <span className="toDo">{this.props.title}</span>
                 </li>
             )
         }
