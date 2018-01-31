@@ -5,13 +5,7 @@ import './../css/style.scss';
 document.addEventListener('DOMContentLoaded', function(){
 
 
-    class List extends React.Component {
-
-        handleDoneClick = () => {
-            if ( typeof this.props.onDone === 'function' ){
-                this.props.onDone(this.props.title);
-            }
-        };
+    class ToDoItem extends React.Component {
 
         handleRemoveClick = () => {
             if ( typeof this.props.onRemove === 'function' ){
@@ -22,29 +16,26 @@ document.addEventListener('DOMContentLoaded', function(){
         render() {
 
             return (
-                <ul>
-                    {
-                        this.props.items.map((item, index) => <li key={index}>
-                            <i className="fas fa-times"
-                               onClick={this.handleRemoveClick}></i>
-                            <i className="fas fa-check"
-                               onClick={this.handleDoneClick}></i>
-                            {item}
-                        </li>)
-                    }
-                </ul>
+                <li>
+                    <i className="fas fa-times"
+                       onClick={this.handleRemoveClick}
+                       style={{marginRight: "10px"}}></i>
+                    <span>{this.props.title}</span>
+                </li>
             )
         }
     }
 
-    class App extends React.Component {
+    class ToDoList extends React.Component {
         state = {
             term: '',
             items: [],
         };
 
         onChange = (event) => {
-            this.setState({ term: event.target.value });
+            this.setState({
+                term: event.target.value
+            });
         };
 
         onSubmit = (event) => {
@@ -55,26 +46,41 @@ document.addEventListener('DOMContentLoaded', function(){
             });
         };
 
-        handleItemDone = (e) => {
-            console.log("DONE")
-        };
-
-        handleItemRemove = (e) => {
-            console.log("REMOVE")
+        handleItemRemove = (title) => {
+            const newItems = this.state.items.filter(item => {
+                return item !== title;
+            });
+            this.setState({
+                items: newItems
+            });
         };
 
         render() {
+            const items = this.state.items.map((item, id) => {
+                return <ToDoItem
+                    key={ this.id }
+                    title={item}
+                    onRemove={this.handleItemRemove}/>
+            });
+
             return (
                 <div>
-                    <form className="App" onSubmit={this.onSubmit}>
+                    <form onSubmit={this.onSubmit}>
                         <input value={this.state.term} onChange={this.onChange} />
                         <button>Submit</button>
                     </form>
-                    <List items={this.state.items}
-                          onDone={this.handleItemDone}
-                          onRemove={this.handleItemRemove}/>
+                    <ul>
+                        {items}
+                    </ul>
                 </div>
-            );
+            )
+        }
+    }
+
+    class App extends React.Component {
+        render() {
+
+            return <ToDoList/>
         }
     }
 
