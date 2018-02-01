@@ -4,6 +4,10 @@
   list-style: none;
 }
 
+body {
+  background-color: #a0a0a0;
+}
+
 .fa-times {
   color: red;
   margin-left: 2px;
@@ -22,4 +26,23 @@
 input {
   margin-left: 40px;
   margin-top: 20px;
+  margin-bottom: 1px;
+  height: 22px;
+  width: 220px;
+  background-color: #adadad;
+}
+
+button {
+  height: 28px;
+  width: 77px;
+  border-radius: 10px;
+  background-color: green;
+  border: 1px solid black;
+  margin-left: 1px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

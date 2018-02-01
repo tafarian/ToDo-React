@@ -64,10 +64,10 @@ document.addEventListener('DOMContentLoaded', function(){
             });
 
             return (
-                <div>
+                <div className="container">
                     <form onSubmit={this.onSubmit}>
                         <input value={this.state.term} onChange={this.onChange} />
-                        <button>Submit</button>
+                        <button>Send</button>
                     </form>
                     <ul>
                         {items}

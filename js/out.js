@@ -9707,7 +9707,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 return _react2.default.createElement(
                     'div',
-                    null,
+                    { className: 'container' },
                     _react2.default.createElement(
                         'form',
                         { onSubmit: this.onSubmit },
@@ -9715,7 +9715,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         _react2.default.createElement(
                             'button',
                             null,
-                            'Submit'
+                            'Send'
                         )
                     ),
                     _react2.default.createElement(
@@ -22266,7 +22266,7 @@ exports = module.exports = __webpack_require__(186)(false);
 
 
 // module
-exports.push([module.i, "* {\n  margin: 0;\n  padding: 0 auto;\n  list-style: none; }\n\n.fa-times {\n  color: red;\n  margin-left: 2px; }\n\n.box {\n  border: 1px solid black;\n  margin-top: 1px;\n  width: 300px; }\n  .box .toDo {\n    font-size: 22px; }\n\ninput {\n  margin-left: 40px;\n  margin-top: 20px; }\n", ""]);
+exports.push([module.i, "* {\n  margin: 0;\n  padding: 0 auto;\n  list-style: none; }\n\nbody {\n  background-color: #a0a0a0; }\n\n.fa-times {\n  color: red;\n  margin-left: 2px; }\n\n.box {\n  border: 1px solid black;\n  margin-top: 1px;\n  width: 300px; }\n  .box .toDo {\n    font-size: 22px; }\n\ninput {\n  margin-left: 40px;\n  margin-top: 20px;\n  margin-bottom: 1px;\n  height: 22px;\n  width: 220px;\n  background-color: #adadad; }\n\nbutton {\n  height: 28px;\n  width: 77px;\n  border-radius: 10px;\n  background-color: green;\n  border: 1px solid black;\n  margin-left: 1px; }\n\n.container {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n", ""]);
 
 // exports
 
